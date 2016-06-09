@@ -14,6 +14,9 @@
   <link rel="stylesheet" href="css/main.css">
   <script src="js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
+<?php require './vendor/autoload.php' ?>
+<?php ini_set('display_errors', 1);?>
+<?php $calculator = new Calculator();?>
 <body>
 <div class="calculator">
   <h1>Calculadora de Tanta</h1>
