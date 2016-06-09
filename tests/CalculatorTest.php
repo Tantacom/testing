@@ -1,8 +1,12 @@
 <?php
 
-namespace Tanta\Testing\Tests;
+namespace Tanta\Tests;
 
-class CalculatorTest extends \PHPUnit_Framework_TestCase {
+use Tanta\Calculator;
+use Tanta\Exceptions\NotNumberException;
+
+class CalculatorTest extends \PHPUnit_Framework_TestCase
+{
 
     /**
      * @var Calculator;
@@ -11,7 +15,7 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase {
     
     public function setUp()
     {
-        $this->class = new \Calculator();
+        $this->class = new Calculator();
     }
 
     /**
@@ -20,5 +24,13 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase {
     public function testSuma()
     {
         $this->assertEquals($this->class->suma(5, 3), 8);
+    }
+
+    /**
+     * @expectedException \Tanta\Exceptions\NotNumberException
+     */
+    public function testSumaThrowExceptionIfNonNumberIsPassed()
+    {
+        $value = $this->class->suma('a', 3);
     }
 }
