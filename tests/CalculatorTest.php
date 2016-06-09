@@ -3,7 +3,6 @@
 namespace Tanta\Tests;
 
 use Tanta\Calculator;
-use Tanta\Exceptions\NotNumberException;
 
 class CalculatorTest extends \PHPUnit_Framework_TestCase
 {
