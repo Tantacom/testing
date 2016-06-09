@@ -15,6 +15,7 @@ before_install:
 install:
     - composer install
 script:
+  - phpcs --standard=PSR2 --ignore="vendor" .
   - vendor/bin/phpunit $PHPUNIT_OPTIONS tests
 
 notifications:
