@@ -26,7 +26,8 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->class->suma($a, $b), $c);
     }
 
-    public function validDataProvider() {
+    public function validDataProvider()
+    {
         return [
             [1, 3, 4],
             [2, 6, 8],
@@ -43,7 +44,8 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
         $this->class->suma($a, $b);
     }
 
-    public function sumaInvalidDataProvider() {
+    public function sumaInvalidDataProvider()
+    {
         return [
             ['a', 2],
             [3, 'b'],
