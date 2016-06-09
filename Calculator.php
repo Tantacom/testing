@@ -21,7 +21,7 @@ class Calculator
             throw new NotNumberException("El primer valor no es un número");
         }
 
-        if (!is_numeric($op1)) {
+        if (!is_numeric($op2)) {
             throw new NotNumberException("El segundo valor no es un número");
         }
 

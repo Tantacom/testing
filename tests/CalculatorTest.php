@@ -20,17 +20,41 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * test for the suma method.
+     * @dataProvider validDataProvider
      */
-    public function testSuma()
+    public function testSuma($a, $b, $c)
     {
-        $this->assertEquals($this->class->suma(5, 3), 8);
+        $this->assertEquals($this->class->suma($a, $b), $c);
+    }
+
+    public function validDataProvider() {
+        return [
+            [1, 3, 4],
+            [2, 6, 8],
+            [5, 6, 11]
+        ];
     }
 
     /**
      * @expectedException \Tanta\Exceptions\NotNumberException
+     * @dataProvider sumaInvalidDataProvider
      */
-    public function testSumaThrowExceptionIfNonNumberIsPassed()
+    public function testSumaThrowExceptionIfNonNumberIsPassed($a, $b)
     {
-        $value = $this->class->suma('a', 3);
+        $this->class->suma($a, $b);
+    }
+
+    public function sumaInvalidDataProvider() {
+        return [
+            ['a', 2],
+            [3, 'b'],
+            ['a', 'b'],
+            [array(), 1],
+            [1, array()],
+            [null, 3],
+            [3, null],
+            [array(), null],
+            [null, array()],
+        ];
     }
 }
