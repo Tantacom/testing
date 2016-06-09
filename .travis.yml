@@ -18,7 +18,7 @@ install:
     - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
     - sudo sed -i -e "s,/var/www,$(pwd),g" /etc/apache2/sites-available/default
     - sudo /etc/init.d/apache2 restart
-    - sudo sed -i -e "/DocumentRoot/i\ServerName tanta.test /etc/apache2/sites-available/default
+    - sudo sed -i -e "/DocumentRoot/i\ServerName tanta.test" /etc/apache2/sites-available/default
     - echo "127.0.0.1 tanta.test" | sudo tee -a /etc/hosts
     - sudo /etc/init.d/apache2 restart
     - composer install --dev --prefer-dist
