@@ -1,0 +1,40 @@
+language: php
+sudo: false
+php:
+  - 5.5
+  - 5.6
+  - 7
+  - hhvm
+sudo: required
+matrix:
+  fast_finish: true
+env:
+  global:
+    - PHPUNIT_OPTIONS=' --colors'
+before_install:
+    - composer self-update
+install:
+    - sudo apt-get update > /dev/null
+    - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
+    - sudo sed -i -e "s,/var/www,$(pwd),g" /etc/apache2/sites-available/default
+    - sudo /etc/init.d/apache2 restart
+    - sudo sed -i -e "/DocumentRoot/i\ServerName tanta.testing" /etc/apache2/sites-available/default
+    - echo "127.0.0.1 tanta.testing" | sudo tee -a /etc/hosts
+    - sudo /etc/init.d/apache2 restart
+    - composer install --dev --prefer-dist
+
+before_script:
+    - "sh -e /etc/init.d/xvfb start"
+    - "export DISPLAY=:99.0"
+    - "wget http://goo.gl/IHP6Qw -O selenium-server-standalone-2.53.0.jar"
+    - "java -jar selenium-server-standalone-2.53.0.jar > /dev/null &"
+    - sleep 5
+
+script:
+  - bin/phpcs --standard=PSR2 --ignore="vendor,features/bootstrap/FeatureContext.php" .
+  - bin/phpunit $PHPUNIT_OPTIONS tests
+  - bin/behat
+
+notifications:
+  slack:
+    secure: Bt5Vn0yxz0h432TpT/yZWXlC561T1Zfr9ZpYRIKubWrHA2sPut+cDMeiFxglcaCugWREyISegGtXHqegS1ASS0sT02TuCnSFaKM2rDsdIVOON87iui8qYDkyveTLRLxgazbPy6EN6kYZclezO9U42S/TrKofiRADZhVEFURzABOSofH6SuplpxmdxYE/xRCB43mM8g9JjDRiEnrLmCYcIN/BdnNF2U8jJkWwiipUUDPfU2s6B4caQxdAI9SVwlJjX2wOLtyQ+27D64LXfbXJ7CBQN3Tt84XT6cDMR4TqQNxL785L7v3LljCHLg12M+yCcOBYmMAUMyMqFbpDGQ4ZVgdi3roNixI4pFfzkmetKBUwyFNQWgQzVKWEdqWEDQUawSYVXuvLW2EkWDWVQpb9rTpQrmX7YYA2xFWkND25AbETaAWnKyVdcjTEH+kLXZKL60n0YFNb1XlzcClI5Rs+baLwiNtAeTL0uoJptvSumrc8WPq1myegXLuhj87EDHXBeINQnIjO1ul3+qIfYIcr3uiynhQNgbrF+5DY4E2pXkKT0ibsnK4NbYBlJLQFRTyrAQ8S5YvUqa8hPtiKnr9xcgqjXO8d2jd0SgigfW9O5ZNX/VtLOcd+/7Q50yRw+ABpMm/yji+Ni6APG6spF+PNPBhsO1kUSfgXDWFZs06Lg1U=
