@@ -31,7 +31,7 @@ before_script:
     - sleep 5
 
 script:
-  - bin/phpcs --standard=PSR2 --ignore="vendor" .
+  - bin/phpcs --standard=PSR2 --ignore="vendor,features/bootstrap/FeatureContext.php" .
   - bin/phpunit $PHPUNIT_OPTIONS tests
   - bin/behat
 
