@@ -36,7 +36,7 @@ before_script:
 script:
   - bin/phpcs --standard=PSR2 --ignore="vendor,features/bootstrap/FeatureContext.php" .
   - bin/phpunit $PHPUNIT_OPTIONS tests
-  - if [ "$DO_BEHAT" == "yes" ] ; then bin/behat fi
+  - if [ "$DO_BEHAT" == "yes" ] ; then bin/behat; fi
 
 notifications:
   slack:
