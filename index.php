@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <?php require 'vendor/autoload.php' ?>
 <?php ini_set('display_errors', 1); ?>
 <?php $calculator = new \Tanta\Calculator(); ?>
