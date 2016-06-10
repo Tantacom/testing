@@ -43,8 +43,16 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext
      * @When /^I fill the field "([^"]*)" with "([^"]*)"$/
      */
     public function iFillTheFieldWith($field, $value)
-    {
-        $ele = $this->getSession()->getPage()->findById($field);
+    {    $ele = $this->getSession()->getPage()->findById($field);
         $ele->setValue($value);
     }
+
+      /**
+     * @When /^meto en el campo "([^"]*)" el valor "([^"]*)"$/
+     */
+    public function metoEnElCampoElValor($arg1, $arg2)
+    {
+        $this->iFillTheFieldWith($arg1, $arg2);
+    }
+
 }
