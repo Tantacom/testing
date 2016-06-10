@@ -4,8 +4,7 @@ namespace Tanta;
 
 use Tanta\Exceptions\NotNumberException;
 
-class Calculator
-{
+class Calculator {
     /**
      * Suma dos números
      *
